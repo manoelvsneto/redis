@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-commander-deployment
+  namespace: redis
   labels:
     app: redis-commander
 spec:
@@ -19,7 +20,7 @@ spec:
         image: rediscommander/redis-commander:latest
         env:
         - name: REDIS_HOSTS
-          value: "local:redis-service:6379"
+          value: "local:redis-service.redis:6379"
         ports:
         - containerPort: 8081
       nodeSelector:
