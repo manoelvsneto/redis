@@ -28,7 +28,9 @@ stages:
           $(Build.SourcesDirectory)/k8s/redis-namespace.yaml
           $(Build.SourcesDirectory)/k8s/redis-service.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-deployment.yaml
+          $(Build.SourcesDirectory)/k8s/redis-commander-certificate.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-service.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-ingress.yaml
           $(Build.SourcesDirectory)/k8s/redis-deployment.yaml
+
         containers: 'redis:latest'
