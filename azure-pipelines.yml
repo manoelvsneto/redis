@@ -15,7 +15,6 @@ stages:
   - job: Build
     displayName: Build
     steps:
-
     - task: KubernetesManifest@0
       displayName: Deploy to Kubernetes cluster
       inputs:
@@ -26,11 +25,21 @@ stages:
         arguments: --insecure-skip-tls-verify
         manifests: |
           $(Build.SourcesDirectory)/k8s/redis-namespace.yaml
+        containers: 'redis:latest'
+
+    - task: KubernetesManifest@0
+      displayName: Deploy to Kubernetes cluster
+      inputs:
+        kubernetesServiceConnection: K8SOracleCloud
+        namespace: redis 
+        action: deploy
+        enableKubectlCommand: true
+        arguments: --insecure-skip-tls-verify
+        manifests: |
           $(Build.SourcesDirectory)/k8s/redis-service.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-deployment.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-certificate.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-service.yaml
           $(Build.SourcesDirectory)/k8s/redis-commander-ingress.yaml
           $(Build.SourcesDirectory)/k8s/redis-deployment.yaml
-
         containers: 'redis:latest'
